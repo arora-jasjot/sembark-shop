@@ -6,7 +6,9 @@
   --font-poppins: "Poppins", sans-serif;
   --color-primary: #B88E2F;
   --color-secondary: #FFF3E3;
-  --color-light: #F9F1E7;
+  --color-accent: #F9F1E7;
+  --color-light: #F4F5F7;
   --color-text: #333333;
   --color-dark: #9F9F9F;
+  --color-grey: #898989;
 }

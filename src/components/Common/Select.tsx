@@ -35,7 +35,7 @@ const Select = ({ width = 55, height = 55, options, value, onSelect }: SelectPro
             <p className="text-lg font-medium text-dark">{getSelectedLabel()}</p>
             <div className="bg-white shadow absolute top-full left-0 overflow-y-hidden duration-150" style={{ width: `${width}px`, maxHeight: showOptions ? '200px' : 0 }}>
                 {
-                    options.map((option: Option) => <div key={option.id} className={`w-full py-2 hover:bg-light cursor-pointer ${option.value === value ? 'bg-secondary' : 'bg-white'}`} onClick={() => handleSelectOption(option.value)}>{option.label}</div>)
+                    options.map((option: Option) => <div key={option.id} className={`w-full py-2 hover:bg-accent cursor-pointer ${option.value === value ? 'bg-secondary' : 'bg-white'}`} onClick={() => handleSelectOption(option.value)}>{option.label}</div>)
                 }
             </div>
         </div>

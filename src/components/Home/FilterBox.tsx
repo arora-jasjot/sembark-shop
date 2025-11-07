@@ -13,7 +13,7 @@ const FilterBox = () => {
     const handleChangeDisplayLength = (value: string) => setDisplayLength(Number(value));
     const handleChangeSortOption = (value: string) => setSortOption(value);
     return (
-        <div className="sticky top-[100px] bg-light py-6 px-16 flex justify-between items-center gap-6">
+        <div className="sticky top-[100px] bg-accent py-6 px-16 flex justify-between items-center gap-6 z-50">
             <div className='flex justify-center items-center gap-6'>
                 <div className='flex justify-center items-center gap-3 cursor-pointer'>
                     <img src={filterIcon} className='w-6 h-6' alt="filter" />

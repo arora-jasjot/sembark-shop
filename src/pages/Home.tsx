@@ -1,6 +1,7 @@
 import Navbar from "@/components/Common/Navbar"
 import Banner from "@/components/Home/Banner"
 import FilterBox from "@/components/Home/FilterBox"
+import PaginatedGrid from "@/components/Home/PaginatedGrid"
 
 
 
@@ -11,6 +12,7 @@ const Home = () => {
       <div className="relative w-full">
         <Banner />
         <FilterBox />
+        <PaginatedGrid />
       </div>
     </div>
   )
