@@ -1,4 +1,5 @@
 import Button from "@/components/Common/Button"
+import Footer from "@/components/Common/Footer"
 import Navbar from "@/components/Common/Navbar"
 import QuantityButton from "@/components/Common/QuantityButton"
 import BreadcrumbsMenu from "@/components/ProductDetails/BreadcrumbsMenu"
@@ -30,7 +31,7 @@ const ProductDetails = () => {
                 <Button style='dark' text='Add to Cart' customClassName='border-primary border rounded-sm' />
             </div>
         </div>
-        
+        <Footer />
       </div>
     </div>
   )

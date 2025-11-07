@@ -1,3 +1,4 @@
+import Footer from "@/components/Common/Footer"
 import Navbar from "@/components/Common/Navbar"
 import Banner from "@/components/Home/Banner"
 import FilterBox from "@/components/Home/FilterBox"
@@ -13,6 +14,7 @@ const Home = () => {
         <Banner />
         <FilterBox />
         <PaginatedGrid />
+        <Footer />
       </div>
     </div>
   )
