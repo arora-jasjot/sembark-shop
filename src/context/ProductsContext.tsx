@@ -47,10 +47,22 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    setTotalPages(Math.ceil(allProducts.length / displayLength))
-    setProducts(allProducts.slice((pageNumber-1)*displayLength, pageNumber*displayLength))
-    setFilteredProducts(allProducts.length)
-  }, [displayLength, pageNumber])
+    let filtered_data;
+//     default
+// a-z
+// z-a
+// high-low
+// low-high
+    if(sortOption === 'default') filtered_data = allProducts;
+    else if(sortOption === 'a-z') filtered_data = allProducts.sort((a, b) => a.title.localeCompare(b.title));
+    else if(sortOption === 'z-a') filtered_data = allProducts.sort((a, b) => b.title.localeCompare(a.title));
+    else if(sortOption === 'high-low') filtered_data = allProducts.sort((a, b) => b.price - a.price);
+    else if(sortOption === 'low-high') filtered_data = allProducts.sort((a, b) => a.price - b.price);
+    else filtered_data = allProducts;
+    setTotalPages(Math.ceil(filtered_data.length / displayLength))
+    setProducts(filtered_data.slice((pageNumber-1)*displayLength, pageNumber*displayLength))
+    setFilteredProducts(filtered_data.length)
+  }, [displayLength, pageNumber, sortOption])
 
   return (
     <ProductsContext.Provider value={{ products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption }}>
