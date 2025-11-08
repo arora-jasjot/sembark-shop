@@ -2,9 +2,8 @@ import { Link } from 'react-router'
 import Button from '@/components/Common/Button'
 import { type ProductType } from '@/types/product'
 const Product = ({ data }: {data: ProductType}) => {
-    console.log(data)
     return (
-        <Link to={'/product/1'} className='w-full max-w-[300px] overflow-hidden mx-auto relative'>
+        <Link to={`/product/${data.id}`} className='w-full max-w-[300px] overflow-hidden mx-auto relative'>
             <div className='w-full aspect-square'>
                 <img src={data.image} className='w-full h-full object-cover' alt="product-1" />
             </div>

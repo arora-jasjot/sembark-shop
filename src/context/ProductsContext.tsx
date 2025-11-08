@@ -14,6 +14,7 @@ interface ProductsContextType {
   setDisplayLength: (number: number) => void
   sortOption: string,
   setSortOption: (option: string) => void
+  getProduct: (id: number) => ProductType | null
 }
 export const ProductsContext = createContext<ProductsContextType>({
   products: [],
@@ -26,6 +27,7 @@ export const ProductsContext = createContext<ProductsContextType>({
   setDisplayLength: () => { },
   sortOption: 'default',
   setSortOption: () => { },
+  getProduct: () => null
 });
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
@@ -48,11 +50,6 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let filtered_data;
-//     default
-// a-z
-// z-a
-// high-low
-// low-high
     if(sortOption === 'default') filtered_data = allProducts;
     else if(sortOption === 'a-z') filtered_data = allProducts.sort((a, b) => a.title.localeCompare(b.title));
     else if(sortOption === 'z-a') filtered_data = allProducts.sort((a, b) => b.title.localeCompare(a.title));
@@ -64,8 +61,10 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     setFilteredProducts(filtered_data.length)
   }, [displayLength, pageNumber, sortOption])
 
+  const getProduct = (id: number) => allProducts.find(product => product.id === id) || null
+
   return (
-    <ProductsContext.Provider value={{ products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption }}>
+    <ProductsContext.Provider value={{ products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption, getProduct }}>
       {children}
     </ProductsContext.Provider>
   );

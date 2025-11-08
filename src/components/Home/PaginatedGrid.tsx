@@ -10,7 +10,7 @@ const PaginatedGrid = () => {
     <div className="w-full space-y-2">
       <div className="py-10 px-16 grid grid-cols-4 gap-6 items-stretch">
         {
-          products.map(product => <Product data={product} />)
+          products.map(product => <Product key={product.id} data={product} />)
         }
       </div>
       <PaginationMenu page={pageNumber} onChangePage={handlePageChange} totalPages={totalPages} />
