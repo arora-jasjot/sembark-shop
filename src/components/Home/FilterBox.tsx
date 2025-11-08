@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import Select from '../Common/Select'
 import { DISPLAY_OPTIONS } from '@/constants/DISPLAY_OPTIONS'
 import { SORT_OPTIONS } from '@/constants/SORT_OPTIONS'
 import filterIcon from '@/assets/icons/filter.svg'
 import gridViewIcon from '@/assets/icons/grid-view.svg'
 import listViewIcon from '@/assets/icons/list-view.svg'
+import { ProductsContext } from '@/context/ProductsContext'
 
 const FilterBox = () => {
-    const [displayLength, setDisplayLength] = useState<number>(10);
-    const [sortOption, setSortOption] = useState<string>('default');
+    const {displayLength, setDisplayLength, sortOption, setSortOption, filteredProducts, pageNumber} = useContext(ProductsContext);
 
     const handleChangeDisplayLength = (value: string) => setDisplayLength(Number(value));
     const handleChangeSortOption = (value: string) => setSortOption(value);
@@ -26,7 +26,7 @@ const FilterBox = () => {
                     <img src={listViewIcon} className='w-6 h-6' alt="list-view" />
                 </div>
                 <div className='h-8 w-0.5 bg-dark'></div>
-                <p className='text-base text-black font-normal'>Showing 1-10 of 32 products</p>
+                <p className='text-base text-black font-normal'>Showing {(pageNumber-1)*displayLength + 1}-{pageNumber*displayLength > filteredProducts ? filteredProducts : pageNumber*displayLength} of {filteredProducts} products</p>
             </div>
             <div className='flex justify-center items-center gap-6'>
                 <p className='text-base text-black font-normal'>Show</p>
