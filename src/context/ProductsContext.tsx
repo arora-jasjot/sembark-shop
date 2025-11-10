@@ -5,6 +5,7 @@ import { createContext, useEffect, useState, type ReactNode } from "react";
 
 interface ProductsContextType {
   products: ProductType[],
+  allProducts: ProductType[],
   pageNumber: number,
   setPageNumber: (number: number) => void
   totalPages: number,
@@ -18,6 +19,7 @@ interface ProductsContextType {
 }
 export const ProductsContext = createContext<ProductsContextType>({
   products: [],
+  allProducts: [],
   pageNumber: 0,
   setPageNumber: () => { },
   totalPages: 0,
@@ -64,7 +66,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const getProduct = (id: number) => allProducts.find(product => product.id === id) || null
 
   return (
-    <ProductsContext.Provider value={{ products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption, getProduct }}>
+    <ProductsContext.Provider value={{ allProducts, products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption, getProduct }}>
       {children}
     </ProductsContext.Provider>
   );

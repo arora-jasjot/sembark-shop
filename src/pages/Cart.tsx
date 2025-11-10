@@ -5,9 +5,12 @@ import { Link } from "react-router"
 import logo from '@/assets/logo.svg'
 import CartItem from '@/components/Cart/CartItem'
 import Button from '@/components/Common/Button'
-
+import { useContext } from 'react'
+import { CartContext } from '@/context/CartContext'
 
 const Cart = () => {
+    const { subTotal, tax, total, items } = useContext(CartContext);
+
     return (
         <div className="relative w-full mt-[100px]">
             <div className="w-full h-fit relative">
@@ -32,28 +35,27 @@ const Cart = () => {
                             <div className='col-span-2'>Subtotal</div>
                             <div className='col-span-1'></div>
                         </div>
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
-                        <CartItem />
+                        {
+                            items?.map(item => <CartItem key={item.id} item={item} />)
+                        }
                     </div>
                     <div className="col-span-1 bg-accent aspect-square flex flex-col justify-between items-center gap-5 p-10">
                         <h2 className='text-2xl font-montserrat font-semibold text-black'>Cart Totals</h2>
                         <div className='space-y-5 w-full mx-auto'>
                             <div className='grid grid-cols-2 text-lg'>
                                 <div className='col-span-1 font-medium text-black'>Sub-total:</div>
-                                <div className='col-span-1 font-normal text-grey text-end'>Rs. 10000</div>
+                                <div className='col-span-1 font-normal text-grey text-end'>Rs. {subTotal}</div>
                             </div>
                             <div className='grid grid-cols-2 text-lg'>
                                 <div className='col-span-1 font-medium text-black'>Tax (12%):</div>
-                                <div className='col-span-1 font-normal text-grey text-end'>Rs. 1200</div>
+                                <div className='col-span-1 font-normal text-grey text-end'>Rs. {tax}</div>
                             </div>
                             <div className='grid grid-cols-2 text-lg'>
                                 <div className='col-span-1 font-medium text-black'>Total:</div>
-                                <div className='col-span-1 font-normal text-grey text-end'>Rs.11200</div>
+                                <div className='col-span-1 font-normal text-grey text-end'>Rs.{total}</div>
                             </div>
                         </div>
-                        <Button style='dark' text='Checkout' customClassName='border-2 border-primary' />
+                        <Button style='dark' text='Checkout' customClassName='border-2 border-primary' handleClick={() => {}} />
                     </div>
                 </div>
             </div>

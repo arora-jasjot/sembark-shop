@@ -3,6 +3,7 @@ import Footer from "@/components/Common/Footer"
 import QuantityButton from "@/components/Common/QuantityButton"
 import BreadcrumbsMenu from "@/components/ProductDetails/BreadcrumbsMenu"
 import ImagesGrid from "@/components/ProductDetails/ImagesGrid"
+import { CartContext } from "@/context/CartContext"
 import { ProductsContext } from "@/context/ProductsContext"
 import type { ProductType } from "@/types/product"
 import { useContext, useEffect, useState } from "react"
@@ -10,6 +11,7 @@ import { useNavigate, useParams } from "react-router"
 
 const ProductDetails = () => {
   const { getProduct } = useContext(ProductsContext);
+  const {addItem} = useContext(CartContext)
   const [quantity, setQuantity] = useState<number>(1);
   const handleQuantityChange = (new_value: number) => {
     setQuantity(new_value)
@@ -47,7 +49,7 @@ const ProductDetails = () => {
           <div className="text-grey font-normal text-base">{data?.description}</div>
           <div className="text-black font-semibold text-lg">Rs. {data?.price}</div>
           <QuantityButton value={quantity} onChange={handleQuantityChange} />
-          <Button style='dark' text='Add to Cart' customClassName='border-primary border rounded-sm' />
+          <Button style='dark' text='Add to Cart' customClassName='border-primary border rounded-sm' handleClick={() => addItem(Number(id))} />
         </div>
       </div>
       <Footer />

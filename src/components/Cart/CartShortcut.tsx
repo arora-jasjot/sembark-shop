@@ -1,14 +1,17 @@
 import { Drawer } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import Button from "../Common/Button";
 import carticon from '@/assets/icons/cart.svg'
 import SidebarItem from "./SidebarItem";
+import { CartContext } from "@/context/CartContext";
 
 const CartShortcut = () => {
     const location = useLocation();
     const { pathname } = location;
+
+    const { subTotal, items } = useContext(CartContext);
 
     const [isSidebarOpen, setSideBarOpen] = useState<boolean>(false);
 
@@ -30,22 +33,16 @@ const CartShortcut = () => {
                             <h1 className="text-2xl font-semibold font-montserrat text-black">Shopping Cart</h1>
                             <img src={carticon} onClick={() => toggleDrawer(false)} className="w-5 h-5 cursor-pointer" alt="" />
                         </div>
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
-                        <SidebarItem />
+                        {
+                            items?.map(item => <SidebarItem key={item.id} item={item} />)
+                        }
                     </div>
                     <div className="w-full h-fit shrink-0 px-10 py-6 border-t border-dark space-y-5">
                         <div className="grid grid-cols-2 gap-2">
                             <div className="col-span-1 text-black font-medium text-lg">Sub total:</div>
-                            <div className="col-span-1 text-grey font-normal text-lg text-end">Rs. 10000</div>
+                            <div className="col-span-1 text-grey font-normal text-lg text-end">Rs. {subTotal}</div>
                         </div>
-                        <Button text="Go to Cart" style="dark" customClassName="border-2 border-primary rounded-sm" />
+                        <Link to={'/cart'}><Button text="Go to Cart" style="dark" customClassName="border-2 border-primary rounded-sm" handleClick={() => {}} /></Link>
                     </div>
                 </div>
             </Drawer>

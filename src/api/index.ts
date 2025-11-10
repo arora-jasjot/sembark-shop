@@ -9,3 +9,13 @@ export const fetchAllProducts = async () => {
     throw error;
   }
 };
+
+export const fetchAllCartItems = async () => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/carts`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
