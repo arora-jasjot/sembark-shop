@@ -10,8 +10,8 @@ import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 
 const ProductDetails = () => {
-  const { getProduct } = useContext(ProductsContext);
-  const {addItem} = useContext(CartContext)
+  const { getProduct, allProducts } = useContext(ProductsContext);
+  const { addItem } = useContext(CartContext)
   const [quantity, setQuantity] = useState<number>(1);
   const handleQuantityChange = (new_value: number) => {
     setQuantity(new_value)
@@ -19,21 +19,20 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const [data, setData] = useState<ProductType | null>(null);
-  
+
   useEffect(() => {
-    if(id){
-      const _data = getProduct(Number(id))
-      if(_data){
+    if (!id) {
+      navigate(-1);
+    }
+    if (allProducts.length > 0) {
+      const _data = getProduct(Number(id));
+      if (_data) {
         setData(_data);
-      }
-      else{
+      } else {
         navigate(-1);
       }
     }
-    else{
-      navigate(-1);
-    }
-  }, [id])
+  }, [id, allProducts])
   return (
     <div className="relative w-full mt-[100px]">
       <BreadcrumbsMenu />
