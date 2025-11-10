@@ -36,7 +36,8 @@ const Cart = () => {
                             <div className='col-span-1'></div>
                         </div>
                         {
-                            items?.map(item => <CartItem key={item.id} item={item} />)
+                            items && items.length ?
+                            items.map(item => <CartItem key={item.id} item={item} />) : <p>No items in cart</p>
                         }
                     </div>
                     <div className="col-span-1 bg-accent lg:aspect-square flex flex-col justify-between items-center gap-5 p-10">

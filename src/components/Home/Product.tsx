@@ -14,7 +14,7 @@ const Product = ({ data, displayType }: { data: ProductType, displayType: 'grid'
                 <h3 className={`${displayType === 'grid' ? 'line-clamp-1' : ''} font-semibold text-xl`}>{data.title}</h3>
                 <h5 className={`${displayType === 'grid' ? 'line-clamp-1' : 'line-clamp-2'} font-medium text-base text-grey`}>{data.description}</h5>
                 <h3 className={`${displayType === 'grid' ? 'line-clamp-1' : ''} font-medium text-lg`}>Rs. {data.price}</h3>
-                <Button style='light' text='Add to Cart' customClassName='border-primary border rounded-sm max-w-[200px]'
+                <Button style='light' text='Add to Cart' customClassName={`border-primary border rounded-sm ${displayType === 'list' ? 'max-w-[200px]' : ''}`}
                     handleClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
