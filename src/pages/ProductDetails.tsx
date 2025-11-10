@@ -4,12 +4,12 @@ import QuantityButton from "@/components/Common/QuantityButton"
 import BreadcrumbsMenu from "@/components/ProductDetails/BreadcrumbsMenu"
 import ImagesGrid from "@/components/ProductDetails/ImagesGrid"
 import { CartContext } from "@/context/CartContext"
-import { ProductsContext } from "@/context/ProductsContext"
 import type { ProductType } from "@/types/product"
 import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { ClipLoader } from 'react-spinners'
 import { motion } from "framer-motion";
+import { fetchSingleProduct } from "@/api"
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -18,7 +18,6 @@ const pageVariants = {
 }
 
 const ProductDetails = () => {
-  const { getProduct, allProducts } = useContext(ProductsContext);
   const { addItem } = useContext(CartContext)
   const [quantity, setQuantity] = useState<number>(1);
   const handleQuantityChange = (new_value: number) => {
@@ -32,15 +31,15 @@ const ProductDetails = () => {
     if (!id) {
       navigate(-1);
     }
-    if (allProducts.length > 0) {
-      const _data = getProduct(Number(id));
-      if (_data) {
-        setData(_data);
-      } else {
-        navigate(-1);
-      }
+    else {
+      fetchSingleProduct(Number(id)).then(_data => {
+        console.log(_data)
+        if (_data) setData(_data)
+        else navigate(-1);
+      })
     }
-  }, [id, allProducts])
+  }, [id])
+
   return (
     <motion.div
       variants={pageVariants}

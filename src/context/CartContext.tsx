@@ -69,7 +69,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           }
         })
         .filter((item): item is CartItemType => Boolean(item));
-      console.log(_items)
       setItems(_items);
     }
   }, [cartItems, allProducts])
