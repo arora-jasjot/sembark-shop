@@ -14,7 +14,7 @@ const Cart = () => {
     return (
         <div className="relative w-full mt-[100px]">
             <div className="w-full h-fit relative">
-                <img src={bannerBg} className="w-full h-auto object-cover opacity-50" alt="background" />
+                <img src={bannerBg} className="w-full h-auto min-h-[200px] object-cover opacity-50" alt="background" />
                 <div className="w-full h-full absolute top-0 left-0 flex justify-center items-center gap-4 flex-col font-poppins">
                     <img src={logo} className='w-20 h-auto' alt="logo" />
                     <h2 className='text-4xl font-medium text-black'>Cart</h2>
@@ -25,10 +25,10 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full py-10 px-16 my-10 font-poppins'>
-                <div className='grid grid-cols-3 gap-10 items-start'>
-                    <div className='col-span-2 space-y-5'>
-                        <div className="grid grid-cols-10 bg-accent text-center py-3 rounded-sm font-medium gap-4 items-center">
+            <div className='w-full py-10 xs:px-16 px-8 my-10 font-poppins'>
+                <div className='lg:grid grid-cols-3 gap-10 items-start space-y-10 lg:space-y-0'>
+                    <div className='col-span-2 space-y-5 '>
+                        <div className="sm:grid hidden grid-cols-10 bg-accent text-center py-3 rounded-sm font-medium gap-4 items-center">
                             <div className='col-span-3'>Product</div>
                             <div className='col-span-2'>Price</div>
                             <div className='col-span-2'>Quantity</div>
@@ -39,7 +39,7 @@ const Cart = () => {
                             items?.map(item => <CartItem key={item.id} item={item} />)
                         }
                     </div>
-                    <div className="col-span-1 bg-accent aspect-square flex flex-col justify-between items-center gap-5 p-10">
+                    <div className="col-span-1 bg-accent lg:aspect-square flex flex-col justify-between items-center gap-5 p-10">
                         <h2 className='text-2xl font-montserrat font-semibold text-black'>Cart Totals</h2>
                         <div className='space-y-5 w-full mx-auto'>
                             <div className='grid grid-cols-2 text-lg'>

@@ -4,7 +4,7 @@ import { FOOTER_CONTENTS } from "@/constants/FOOTER_CONTENTS"
 const Footer = () => {
     
   return (
-    <div className='w-full px-6 py-16 flex justify-around items-center gap-4 mt-10 bg-accent'>
+    <div className='w-full px-6 py-16 flex justify-around items-center gap-4 gap-y-10 mt-10 bg-accent flex-wrap'>
         {
             FOOTER_CONTENTS.map(content => <div key={content.id} className='flex justify-center items-center gap-2 font-poppins'>
             <img src={content.icon} className='w-10 h-auto' alt="quality" />

@@ -11,4 +11,5 @@
   --color-text: #333333;
   --color-dark: #9F9F9F;
   --color-grey: #898989;
+  --breakpoint-xs: 450px;
 }

@@ -37,8 +37,8 @@ const ProductDetails = () => {
   return (
     <div className="relative w-full mt-[100px]">
       <BreadcrumbsMenu />
-      <div className="flex justify-center items-start w-full py-10 px-16 gap-24 my-10">
-        <div className="shrink-0 w-fit">
+      <div className="sm:flex justify-center items-start w-full py-10 px-16 gap-24 my-10 space-y-10">
+        <div className="shrink-0 w-fit mx-auto">
           <ImagesGrid image={data?.image || null} />
         </div>
         <div className="w-full shrink space-y-5 max-w-[500px]">

@@ -8,7 +8,7 @@ const PaginatedGrid = () => {
   const handlePageChange = (new_page: number) => setPageNumber(new_page);
   return (
     <div className="w-full space-y-2">
-      <div className="py-10 px-16 grid grid-cols-4 gap-6 items-stretch">
+      <div className="py-10 px-16 grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-6 items-stretch">
         {
           products.map(product => <Product key={product.id} data={product} />)
         }

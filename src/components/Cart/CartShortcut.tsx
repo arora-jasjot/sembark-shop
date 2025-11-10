@@ -27,7 +27,7 @@ const CartShortcut = () => {
             <Drawer open={isSidebarOpen && pathname !== "/cart"} onClose={() => toggleDrawer(false)} anchor={'right'} ModalProps={{
                 keepMounted: false
             }}>
-                <div className="w-[400px] h-full flex flex-col justify-center items-center font-poppins">
+                <div className="xs:w-[400px] w-[350px] h-full flex flex-col justify-center items-center font-poppins">
                     <div className="w-full h-full shrink overflow-y-auto relative">
                         <div className="p-6 border-b border-dark flex justify-between items-center sticky top-0 left-0 bg-white">
                             <h1 className="text-2xl font-semibold font-montserrat text-black">Shopping Cart</h1>
@@ -42,7 +42,7 @@ const CartShortcut = () => {
                             <div className="col-span-1 text-black font-medium text-lg">Sub total:</div>
                             <div className="col-span-1 text-grey font-normal text-lg text-end">Rs. {subTotal}</div>
                         </div>
-                        <Link to={'/cart'}><Button text="Go to Cart" style="dark" customClassName="border-2 border-primary rounded-sm" handleClick={() => {}} /></Link>
+                        <Link onClick={() => toggleDrawer(false)} to={'/cart'}><Button text="Go to Cart" style="dark" customClassName="border-2 border-primary rounded-sm" handleClick={() => {}} /></Link>
                     </div>
                 </div>
             </Drawer>
