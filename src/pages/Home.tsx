@@ -6,7 +6,13 @@ import { ProductsContext } from "@/context/ProductsContext"
 import { useWindowDimensions } from "@/utils/udeDimensions"
 import { useContext, useEffect, useState } from "react"
 import { useSearchParams } from "react-router"
+import { motion } from "framer-motion";
 
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+}
 
 
 const Home = () => {
@@ -40,12 +46,21 @@ const Home = () => {
     if (width < 640 && displayType === 'list') setDisplayType('grid')
   }, [width, displayType])
   return (
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="p-10"
+    >
     <div className="relative w-full">
       <Banner />
       <FilterBox setDisplayType={setDisplayType} />
       <PaginatedGrid displayType={displayType} />
       <Footer />
     </div>
+    </motion.div>
   )
 }
 

@@ -7,11 +7,26 @@ import CartItem from '@/components/Cart/CartItem'
 import Button from '@/components/Common/Button'
 import { useContext } from 'react'
 import { CartContext } from '@/context/CartContext'
+import { motion } from "framer-motion";
+
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+}
 
 const Cart = () => {
     const { subTotal, tax, total, items } = useContext(CartContext);
 
     return (
+        <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="p-10"
+    >
         <div className="relative w-full mt-[100px]">
             <div className="w-full h-fit relative">
                 <img src={bannerBg} className="w-full h-auto min-h-[200px] object-cover opacity-50" alt="background" />
@@ -62,6 +77,7 @@ const Cart = () => {
             </div>
             <Footer />
         </div>
+    </motion.div>
     )
 }
 
