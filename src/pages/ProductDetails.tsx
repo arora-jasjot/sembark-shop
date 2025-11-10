@@ -48,7 +48,6 @@ const ProductDetails = () => {
       animate="animate"
       exit="exit"
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="p-10"
     >
       <div className="relative w-full mt-[100px]">
         <BreadcrumbsMenu />
