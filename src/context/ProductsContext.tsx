@@ -19,8 +19,9 @@ interface ProductsContextType {
   getProduct: (id: number) => ProductType | null,
   loading: boolean,
   categories: string[],
-  selectedCategory: string | null,
-  setSelectedCategory: (new_category: string | null) => void
+  selectedCategories: string | null,
+  toggleCategory: (new_category: string) => void
+  selectCategories: (new_categories: string | null) => void
 }
 export const ProductsContext = createContext<ProductsContextType>({
   products: [],
@@ -37,8 +38,9 @@ export const ProductsContext = createContext<ProductsContextType>({
   getProduct: () => null,
   loading: true,
   categories: [],
-  selectedCategory: null,
-  setSelectedCategory: () => {}
+  selectedCategories: null,
+  toggleCategory: () => { },
+  selectCategories: () => { }
 });
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
@@ -49,7 +51,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
 
   const initialSort = searchParams.get("sortby") || "";
   const initialLength = Number(searchParams.get("pageSize")) || 10;
-  const initialCategory = searchParams.get("category") || "";
+  const initialCategory = searchParams.get("category") || null;
 
   const [allProducts, setAllProducts] = useState<ProductType[]>([]) //All Products from API
   const [products, setProducts] = useState<ProductType[]>([]) // Filtered Products to be displayed
@@ -59,7 +61,7 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const [displayLength, setDisplayLength] = useState<number>(initialLength);
   const [sortOption, setSortOption] = useState<string>(initialSort);
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
+  const [selectedCategories, selectCategories] = useState<string | null>(initialCategory);
 
   useEffect(() => {
     fetchAllCategories().then(data => {
@@ -73,8 +75,10 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     refetchData()
-  }, [selectedCategory, sortOption])
-  
+  }, [selectedCategories, sortOption])
+
+  console.log(allProducts)
+
   const filterData = (products: ProductType[]) => {
     // let filtered_data;
     // if(sortOption === 'default') filtered_data = products;
@@ -85,22 +89,44 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
     // else filtered_data = products;
     const filtered_data = products;
     setTotalPages(Math.ceil(filtered_data.length / displayLength))
-    setProducts(filtered_data.slice((pageNumber-1)*displayLength, pageNumber*displayLength))
+    setProducts(filtered_data.slice((pageNumber - 1) * displayLength, pageNumber * displayLength))
     setFilteredProducts(filtered_data.length)
     setLoading(false)
   }
 
-  const refetchData = () => {
+  const toggleCategory = (category: string) => {
+    const _selectedCategories = selectedCategories?.split(',') || []
+    if (_selectedCategories.includes(category)) {
+      selectCategories(_selectedCategories.filter(ct => ct != category).join(','))
+    }
+    else {
+      _selectedCategories.push(category);
+      selectCategories(_selectedCategories.join(','))
+    }
+  }
+
+  const refetchData = async () => {
     setLoading(true);
-    fetchAllProducts(selectedCategory, sortOption).then(data => {
-      setAllProducts(data)
-    })
+    const categories = selectedCategories?.split(',') || []
+    if (categories.length) {
+      const results = await Promise.all(
+        categories.map(category => fetchAllProducts(category, sortOption))
+      );
+
+      const _data = results.flat();
+      setAllProducts(_data);
+    }
+    else {
+      fetchAllProducts(null, sortOption).then(data => {
+        setAllProducts(data)
+      })
+    }
   }
 
   const getProduct = (id: number) => allProducts.find(product => product.id === id) || null
 
   return (
-    <ProductsContext.Provider value={{ allProducts, products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption, getProduct, loading, categories, selectedCategory, setSelectedCategory }}>
+    <ProductsContext.Provider value={{ allProducts, products, pageNumber, setPageNumber, totalPages, totalProducts: allProducts.length, filteredProducts, displayLength, setDisplayLength, sortOption, setSortOption, getProduct, loading, categories, selectedCategories, toggleCategory, selectCategories }}>
       {children}
     </ProductsContext.Provider>
   );

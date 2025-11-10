@@ -10,14 +10,14 @@ import { useWindowDimensions } from '@/utils/udeDimensions'
 import FiltersDropdown from './FiltersDropdown'
 
 const FilterBox = ({ setDisplayType }: { setDisplayType: (new_type: 'list' | 'grid') => void }) => {
-    const { categories, selectedCategory, setSelectedCategory, displayLength, setDisplayLength, sortOption, setSortOption, filteredProducts, pageNumber } = useContext(ProductsContext);
+    const { categories, selectedCategories, toggleCategory, displayLength, setDisplayLength, sortOption, setSortOption, filteredProducts, pageNumber } = useContext(ProductsContext);
 
     const { width } = useWindowDimensions()
     const [showCategories, setShowCategories] = useState(false);
     const handleChangeDisplayLength = (value: string) => setDisplayLength(Number(value));
     const handleChangeSortOption = (value: string) => setSortOption(value);
     const handleChangeCategory = (value: string) => {
-        setSelectedCategory(value)
+        toggleCategory(value)
         setShowCategories(false)
     }
     return (
@@ -26,7 +26,7 @@ const FilterBox = ({ setDisplayType }: { setDisplayType: (new_type: 'list' | 'gr
                 <div className='flex justify-center items-center gap-3 cursor-pointer relative'>
                     <img src={filterIcon} className='w-6 h-6' alt="filter" onClick={() => setShowCategories(sc => !sc)} />
                     <p className='font-poppins text-black text-lg'>Filter</p>
-                    <FiltersDropdown selectedCategory={selectedCategory} categories={categories} handleSelectCategory={handleChangeCategory} showCategories={showCategories} setShowCategores={setShowCategories} />
+                    <FiltersDropdown selectedCategories={selectedCategories} categories={categories} handleSelectCategory={handleChangeCategory} showCategories={showCategories} setShowCategores={setShowCategories} />
                 </div>
                 <div className='cursor-pointer w-7 h-7 sm:block hidden'>
                     <img src={gridViewIcon} className='w-7 h-7' alt="grid-view" onClick={() => setDisplayType('grid')} />
