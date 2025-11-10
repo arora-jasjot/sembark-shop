@@ -1,73 +1,172 @@
-# React + TypeScript + Vite
+# Sembark Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern e-commerce shopping application built with React, TypeScript, and Vite. This project features a clean, responsive design with product browsing, detailed product views, and shopping cart functionality.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Product Browsing**: Browse products with grid and list view options
+- **Product Details**: Detailed product pages with images, descriptions, and pricing
+- **Shopping Cart**: Add items to cart, manage quantities, and view totals
+- **Responsive Design**: Mobile-friendly interface with adaptive layouts
+- **Filtering & Sorting**: Sort products and filter by various criteria
+- **Pagination**: Navigate through products with pagination controls
+- **Smooth Animations**: Enhanced UX with Framer Motion animations
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend Framework**: React 19 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Routing**: React Router v7
+- **UI Components**: Material-UI (MUI)
+- **Animations**: Framer Motion
+- **HTTP Client**: Axios
+- **Testing**: Cypress (E2E testing)
+- **Icons**: React Icons
 
-## Expanding the ESLint configuration
+## 📋 Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Before you begin, ensure you have the following installed:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js** (v18 or higher)
+- **npm** or **yarn** package manager
+- **Git** (for cloning the repository)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🔧 Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd sembark-shop
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   
+   Create a `.env` file in the root directory:
+   ```env
+   VITE_API_URL=https://fakestoreapi.com
+   ```
+
+## 🚀 Getting Started
+
+### Development Server
+
+Start the development server:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Build for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Create a production build:
+
+```bash
+npm run build
 ```
+
+The built files will be in the `dist` directory.
+
+### Preview Production Build
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## 🧪 Testing
+
+### Run Cypress Tests
+
+Open Cypress Test Runner:
+
+```bash
+npx cypress open
+```
+
+Run Cypress tests headlessly:
+
+```bash
+npx cypress run
+```
+
+**Note**: Make sure the development server is running (`npm run dev`) before running Cypress tests, as they target `http://localhost:5173`.
+
+### Test Coverage
+
+The project includes E2E tests for:
+- Home page functionality
+- Product details page
+- Shopping cart page
+
+## 📁 Project Structure
+
+```
+sembark-shop/
+├── cypress/              # Cypress E2E tests
+│   ├── e2e/             # Test files
+│   └── support/         # Test support files
+├── public/              # Static assets
+├── src/
+│   ├── api/             # API service functions
+│   ├── assets/          # Images, icons, and other assets
+│   ├── components/      # React components
+│   │   ├── Cart/        # Cart-related components
+│   │   ├── Common/      # Shared components
+│   │   ├── Home/        # Home page components
+│   │   └── ProductDetails/ # Product details components
+│   ├── constants/      # Application constants
+│   ├── context/         # React Context providers
+│   ├── pages/           # Page components
+│   ├── types/           # TypeScript type definitions
+│   ├── utils/           # Utility functions
+│   ├── App.tsx          # Main App component
+│   └── main.tsx         # Application entry point
+├── .env                 # Environment variables (create this)
+├── cypress.config.ts    # Cypress configuration
+├── package.json         # Project dependencies
+├── tsconfig.json        # TypeScript configuration
+└── vite.config.ts       # Vite configuration
+```
+
+## 🎨 Key Features Implementation
+
+### Routing
+
+The application uses React Router for navigation:
+- `/` - Home page with product listing
+- `/product/:id` - Product details page
+- `/cart` - Shopping cart page
+
+### State Management
+
+- React Context API for global state management
+- `ProductsContext` - Manages product data and filtering
+- `CartContext` - Manages shopping cart state
+
+### Styling
+
+- Tailwind CSS for utility-first styling
+- Custom color scheme and responsive breakpoints
+- Material-UI components for complex UI elements
+
+## 📝 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🔒 Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_API_URL` | Base URL for the API | Yes |
