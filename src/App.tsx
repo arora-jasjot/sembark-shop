@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
@@ -8,7 +8,6 @@ import CartShortcut from "./components/Cart/CartShortcut";
 const App = () => {
   return (
     <div className="w-full relative">
-      <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -16,7 +15,6 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
         </Routes>
         <CartShortcut />
-      </BrowserRouter>
     </div>
   )
 }

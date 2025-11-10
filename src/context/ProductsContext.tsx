@@ -2,6 +2,7 @@
 import { fetchAllProducts } from "@/api";
 import type { ProductType } from "@/types/product";
 import { createContext, useEffect, useState, type ReactNode } from "react";
+import { useSearchParams } from "react-router";
 
 interface ProductsContextType {
   products: ProductType[],
@@ -33,35 +34,43 @@ export const ProductsContext = createContext<ProductsContextType>({
 });
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
+
+  const [searchParams] = useSearchParams();
+
+  const initialSort = searchParams.get("sortby") || "default";
+  const initialLength = Number(searchParams.get("pageSize")) || 10;
+
   const [allProducts, setAllProducts] = useState<ProductType[]>([]) //All Products from API
   const [products, setProducts] = useState<ProductType[]>([]) // Filtered Products to be displayed
   const [filteredProducts, setFilteredProducts] = useState<number>(0)
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [displayLength, setDisplayLength] = useState<number>(10);
-  const [sortOption, setSortOption] = useState<string>('default');
+  const [displayLength, setDisplayLength] = useState<number>(initialLength);
+  const [sortOption, setSortOption] = useState<string>(initialSort);
 
   useEffect(() => {
     fetchAllProducts().then(data => {
       setAllProducts(data)
-      setProducts(data.slice(0, displayLength));
-      setTotalPages(Math.ceil(data.length / displayLength))
-      setFilteredProducts(data.length)
+      filterData(data)
     });
   }, []);
 
   useEffect(() => {
+    filterData(allProducts)
+  }, [displayLength, pageNumber, sortOption])
+  
+  const filterData = (products: ProductType[]) => {
     let filtered_data;
-    if(sortOption === 'default') filtered_data = allProducts;
-    else if(sortOption === 'a-z') filtered_data = allProducts.sort((a, b) => a.title.localeCompare(b.title));
-    else if(sortOption === 'z-a') filtered_data = allProducts.sort((a, b) => b.title.localeCompare(a.title));
-    else if(sortOption === 'high-low') filtered_data = allProducts.sort((a, b) => b.price - a.price);
-    else if(sortOption === 'low-high') filtered_data = allProducts.sort((a, b) => a.price - b.price);
-    else filtered_data = allProducts;
+    if(sortOption === 'default') filtered_data = products;
+    else if(sortOption === 'a-z') filtered_data = products.sort((a, b) => a.title.localeCompare(b.title));
+    else if(sortOption === 'z-a') filtered_data = products.sort((a, b) => b.title.localeCompare(a.title));
+    else if(sortOption === 'high-low') filtered_data = products.sort((a, b) => b.price - a.price);
+    else if(sortOption === 'low-high') filtered_data = products.sort((a, b) => a.price - b.price);
+    else filtered_data = products;
     setTotalPages(Math.ceil(filtered_data.length / displayLength))
     setProducts(filtered_data.slice((pageNumber-1)*displayLength, pageNumber*displayLength))
     setFilteredProducts(filtered_data.length)
-  }, [displayLength, pageNumber, sortOption])
+  }
 
   const getProduct = (id: number) => allProducts.find(product => product.id === id) || null
 
