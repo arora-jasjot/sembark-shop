@@ -12,6 +12,13 @@ A modern e-commerce shopping application built with React, TypeScript, and Vite.
 - **Pagination**: Navigate through products with pagination controls
 - **Smooth Animations**: Enhanced UX with Framer Motion animations
 
+## 🧩 Additional Information (update)
+
+A **`v2`** branch is also available in the repository, which includes **enhanced filtering functionality** — allowing users to **select multiple filters** simultaneously for a more flexible product browsing experience.
+
+You can check it out here:  
+👉 **Branch:** [v2](https://github.com/arora-jasjot/sembark-shop/tree/v2)
+
 ## 🛠️ Tech Stack
 
 - **Frontend Framework**: React 19 with TypeScript
